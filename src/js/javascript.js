@@ -61,17 +61,9 @@
             let passSymbol = null;
             counter++;
             
-            if(counter % 2 == 1) {
-                console.log('even numbers');
-                passSymbol = yourSymbol;
-
-            } else {
-                console.log('odd numbers');
-                passSymbol = artificialSymbol;
-            }
-            // if(clickedBlock) 
+            passSymbol = counter % 2 == 1?  yourSymbol: artificialSymbol;
+            
             clickedBlock.toElement.innerHTML = passSymbol;
-
         }
 
         var getValueInput = function() {

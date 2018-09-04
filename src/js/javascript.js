@@ -9,7 +9,7 @@
         let chooseSymbol = Array.from(document.querySelectorAll('.choose-symbol'));
         const cell = document.querySelectorAll('.cell');
         let yourSymbol, artificialSymbol;
-        console.log(yourSymbol);
+        let counter = 0;
         let playButton = document.getElementById('go-play');
        
         this.init = function() {
@@ -23,18 +23,18 @@
 
         var addEventListener = function () {
             [].forEach.call(chooseSymbol,function(e){
-                e.addEventListener('click', function() {
+                e.addEventListener('mouseup', function() {
                     checkSymbol(e);    
                 })
             });
 
             for(var i = 0; i < cell.length; i++) {
-                cell[i].addEventListener('click', function(e) {
+                cell[i].addEventListener('mouseup', function(e) {
                     clickBlock(e);
                 });
             }
 
-            playButton.addEventListener('click', changeScreen);
+            playButton.addEventListener('mouseup', changeScreen);
         }
 
         var checkSymbol = function(symbol) {
@@ -58,8 +58,19 @@
 
         var clickBlock = function(theblock) {
             let clickedBlock = theblock;
-            console.log(yourSymbol);
-            clickedBlock.toElement.innerHTML = yourSymbol;
+            let passSymbol = null;
+            counter++;
+            
+            if(counter % 2 == 1) {
+                console.log('even numbers');
+                passSymbol = yourSymbol;
+
+            } else {
+                console.log('odd numbers');
+                passSymbol = artificialSymbol;
+            }
+            // if(clickedBlock) 
+            clickedBlock.toElement.innerHTML = passSymbol;
 
         }
 

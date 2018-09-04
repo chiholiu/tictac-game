@@ -10,4 +10,16 @@ body {
         color: #FFF;
         cursor: pointer;	
     }
+    .choose {
+        display: block;
+    }
+    .game {
+        display: none;
+    }
+    .block {
+        display: block;
+    }
+    .none {
+        display: none;
+    }
 }

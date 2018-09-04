@@ -4,10 +4,11 @@
 
 
     function TicTac() {
+
         let board = document.createElement('table');
         let chooseSymbol = Array.from(document.querySelectorAll('.choose-symbol'));
         let yourSymbol, artificialSymbol;
-        
+        let playButton = document.getElementById('go-play');
        
         this.init = function() {
             printBoard();
@@ -24,12 +25,27 @@
                     checkSymbol(e);    
                 })
             })
+
+            playButton.addEventListener('click', changeScreen);
         }
 
         var checkSymbol = function(symbol) {
             let chosenSymbol = symbol;
             yourSymbol = chosenSymbol.id;
             artificialSymbol = chosenSymbol == x ? '0': 'x'; 
+
+            // check if player has chosen a symbol
+            if(chosenSymbol != 'undefined') {
+                playButton.removeAttribute('disabled');
+            }
+        }
+
+        var changeScreen = function() {
+            let chooseTab = document.getElementById('tab-choose');
+            let gameTab = document.getElementById('tab-game');
+
+            chooseTab.classList.add('none');
+            gameTab.classList.add('block');
         }
 
         var chooseItem = function(char) {

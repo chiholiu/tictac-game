@@ -7,7 +7,9 @@
 
         let board = document.createElement('table');
         let chooseSymbol = Array.from(document.querySelectorAll('.choose-symbol'));
+        const cell = document.querySelectorAll('.cell');
         let yourSymbol, artificialSymbol;
+        console.log(yourSymbol);
         let playButton = document.getElementById('go-play');
        
         this.init = function() {
@@ -24,7 +26,13 @@
                 e.addEventListener('click', function() {
                     checkSymbol(e);    
                 })
-            })
+            });
+
+            for(var i = 0; i < cell.length; i++) {
+                cell[i].addEventListener('click', function(e) {
+                    clickBlock(e);
+                });
+            }
 
             playButton.addEventListener('click', changeScreen);
         }
@@ -48,9 +56,12 @@
             gameTab.classList.add('block');
         }
 
-        var chooseItem = function(char) {
-           
-        } 
+        var clickBlock = function(theblock) {
+            let clickedBlock = theblock;
+            console.log(yourSymbol);
+            clickedBlock.toElement.innerHTML = yourSymbol;
+
+        }
 
         var getValueInput = function() {
 

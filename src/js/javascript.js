@@ -3,12 +3,11 @@
     console.log('hello');
 
     function TicTac() {
-        let board = document.createElement('table');
-        let chooseSymbol = Array.from(document.querySelectorAll('.choose-symbol'));
         const cell = document.querySelectorAll('.cell');
+        let playButton = document.getElementById('go-play');
         let yourSymbol, artificialSymbol;
         let counter = 0;
-        let playButton = document.getElementById('go-play');
+        let emptyArray = [];
 
         const winCombos = [
             [0, 1, 2],
@@ -26,6 +25,9 @@
         }
 
         var addEventListener = function () {
+            let chooseSymbol = Array.from(document.querySelectorAll('.choose-symbol'));
+
+
             [].forEach.call(chooseSymbol,function(e){
                 e.addEventListener('mouseup', function() {
                     checkSymbol(e);    
@@ -68,16 +70,26 @@
             if(checkBlock == false) {
                 counter++;
                 passSymbol = counter % 2 == 1? yourSymbol: artificialSymbol;
-                clickedBlock.toElement.innerHTML = passSymbol;
-                clickedBlock.toElement.classList.add('set');
-            } else {
-                return false;
-            }
-            checkWinner(passSymbol);
+                addText(clickedBlock, passSymbol);
+
+            } 
         }
 
-        var checkWinner = function(e) {
-            console.log('hello world ' + yourSymbol);
+        var addText = function(clickBlock, passSymbol) {
+            let getClick = clickBlock;
+            let getSymbol = passSymbol;
+
+            getClick.toElement.innerHTML = getSymbol;
+            getClick.toElement.classList.add('set');
+            getClick.toElement.setAttribute('value', getSymbol);
+            checkWinner(getClick);
+        }
+
+        var checkWinner = function(hello) {
+            let obj = {};
+            obj[hello.toElement.id] = hello.toElement.getAttribute('value');
+            emptyArray.push(obj);
+            console.log(emptyArray);
         }
     }
     

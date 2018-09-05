@@ -2,23 +2,27 @@
     "use strict";
     console.log('hello');
 
-
     function TicTac() {
-
         let board = document.createElement('table');
         let chooseSymbol = Array.from(document.querySelectorAll('.choose-symbol'));
         const cell = document.querySelectorAll('.cell');
         let yourSymbol, artificialSymbol;
         let counter = 0;
         let playButton = document.getElementById('go-play');
+
+        const winCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [6, 4, 2]
+        ];
        
         this.init = function() {
-            printBoard();
             addEventListener();
-        }
-
-        var printBoard = function() {
-
         }
 
         var addEventListener = function () {
@@ -59,19 +63,22 @@
         var clickBlock = function(theblock) {
             let clickedBlock = theblock;
             let passSymbol = null;
-            counter++;
-            
-            passSymbol = counter % 2 == 1?  yourSymbol: artificialSymbol;
-            
-            clickedBlock.toElement.innerHTML = passSymbol;
+            let checkBlock = clickedBlock.target.classList.contains('set');
+
+            if(checkBlock == false) {
+                counter++;
+                passSymbol = counter % 2 == 1? yourSymbol: artificialSymbol;
+                clickedBlock.toElement.innerHTML = passSymbol;
+                clickedBlock.toElement.classList.add('set');
+            } else {
+                return false;
+            }
+            checkWinner(passSymbol);
         }
 
-        var getValueInput = function() {
-
+        var checkWinner = function(e) {
+            console.log('hello world ' + yourSymbol);
         }
-        console.log(chooseSymbol.length);
-      
-
     }
     
     let tictac = new TicTac();

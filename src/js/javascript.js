@@ -24,7 +24,7 @@
             addEventListener();
         }
 
-        var addEventListener = function () {
+        let addEventListener = function () {
             let chooseSymbol = Array.from(document.querySelectorAll('.choose-symbol'));
 
 
@@ -43,7 +43,7 @@
             playButton.addEventListener('mouseup', changeScreen);
         }
 
-        var checkSymbol = function(symbol) {
+        let checkSymbol = function(symbol) {
             let chosenSymbol = symbol;
             yourSymbol = chosenSymbol.id;
             artificialSymbol = chosenSymbol == x ? '0': 'x'; 
@@ -54,7 +54,7 @@
             }
         }
 
-        var changeScreen = function() {
+        let changeScreen = function() {
             let chooseTab = document.getElementById('tab-choose');
             let gameTab = document.getElementById('tab-game');
 
@@ -62,7 +62,7 @@
             gameTab.classList.add('block');
         }
 
-        var clickBlock = function(theblock) {
+        let clickBlock = function(theblock) {
             let clickedBlock = theblock;
             let passSymbol = null;
             let checkBlock = clickedBlock.target.classList.contains('set');
@@ -75,21 +75,44 @@
             } 
         }
 
-        var addText = function(clickBlock, passSymbol) {
+        let addText = function(clickBlock, passSymbol) {
             let getClick = clickBlock;
             let getSymbol = passSymbol;
 
             getClick.toElement.innerHTML = getSymbol;
             getClick.toElement.classList.add('set');
             getClick.toElement.setAttribute('value', getSymbol);
-            checkWinner(getClick);
+            addArray(getClick);
         }
 
-        var checkWinner = function(hello) {
-            let obj = {};
-            obj[hello.toElement.id] = hello.toElement.getAttribute('value');
-            emptyArray.push(obj);
-            console.log(emptyArray);
+        let addArray = function(hello) {
+            emptyArray.push({id: parseInt(hello.toElement.id), value: hello.toElement.getAttribute('value')})
+            sortObject(emptyArray);
+        }
+
+        let sortObject = function(objects) {
+            let sortedArray = objects;
+            sortedArray.sort(function(a,b) {
+                let keyA = a.id;
+                let keyB = b.id;
+                if(keyA < keyB) return -1;
+                if(keyB < keyA) return 1;
+                return 0;
+            });
+            checkArtificial(sortedArray);
+        }
+
+        let filterArray = function(updatedArray) {
+            // the array will be split up in two different arrays, so it would be easier to check who is the winner
+            let filtered = updatedArray.reduce((output, symbol) => {
+                if(symbol.value == artificialSymbol) output[0].push(symbol);
+                else if (symbol.value == yourSymbol) output[1].push(symbol);
+                return output;
+            }, [[], []]);
+        }   
+        
+        let checkWinner = function() {
+
         }
     }
     

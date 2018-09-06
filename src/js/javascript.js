@@ -128,9 +128,17 @@
         }
 
         let checkWinner = function(playerArray, computerArray) {
-            const map1 = winCombos.map(x => x);
-            console.log(map1);
+            let playerWin = winCombos.find(x => x.every( z => playerArray.includes(z)));
+            let computerWin = winCombos.find(x=>x.every(z=> computerArray.includes(z)));
+            if(playerWin == undefined) {
+                return;
+            }
+            if(playerWin) {
+                console.log('winner found');
+            }
+            console.log(playerWin);
         }
+        
     }
     
     let tictac = new TicTac();

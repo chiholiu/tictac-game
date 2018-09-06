@@ -99,20 +99,37 @@
                 if(keyB < keyA) return 1;
                 return 0;
             });
-            checkArtificial(sortedArray);
+            filterArray(sortedArray);
         }
 
         let filterArray = function(updatedArray) {
             // the array will be split up in two different arrays, so it would be easier to check who is the winner
             let filtered = updatedArray.reduce((output, symbol) => {
-                if(symbol.value == artificialSymbol) output[0].push(symbol);
-                else if (symbol.value == yourSymbol) output[1].push(symbol);
+                if(symbol.value == yourSymbol) output[0].push(symbol);
+                else if (symbol.value == artificialSymbol) output[1].push(symbol);
                 return output;
             }, [[], []]);
+            getPositionBoard(filtered);
         }   
         
-        let checkWinner = function() {
+        let getPositionBoard = function(twoArrays) {
+            let playersArray = twoArrays[0];
+            let artificialArray = twoArrays[1];
 
+            let result1 = playersArray.map(a => {
+                return a.id;
+            });
+
+            let result2 = artificialArray.map(a => {
+                return a.id;
+            });
+
+            checkWinner(result1, result2);
+        }
+
+        let checkWinner = function(playerArray, computerArray) {
+            const map1 = winCombos.map(x => x);
+            console.log(map1);
         }
     }
     

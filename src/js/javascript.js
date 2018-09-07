@@ -6,8 +6,12 @@
         const cell = document.querySelectorAll('.cell');
         let playButton = document.getElementById('go-play');
         let yourSymbol, artificialSymbol;
+        let playAgain = document.getElementById('play-again-button');
         let counter = 0;
         let emptyArray = [];
+        let playerScore = 0;
+        let computerScore = 0;
+        let equal = 0;
 
         const winCombos = [
             [0, 1, 2],
@@ -41,6 +45,7 @@
             }
 
             playButton.addEventListener('mouseup', changeScreen);
+            playAgain.addEventListener('mouseup', resetGame);
         }
 
         let checkSymbol = function(symbol) {
@@ -115,30 +120,49 @@
         let getPositionBoard = function(twoArrays) {
             let playersArray = twoArrays[0];
             let artificialArray = twoArrays[1];
+           
+            const getId = a => a.id;
 
-            let result1 = playersArray.map(a => {
-                return a.id;
-            });
-
-            let result2 = artificialArray.map(a => {
-                return a.id;
-            });
+            let result1 = playersArray.map(getId);
+            let result2 = artificialArray.map(getId);
 
             checkWinner(result1, result2);
         }
 
         let checkWinner = function(playerArray, computerArray) {
             let playerWin = winCombos.find(x => x.every( z => playerArray.includes(z)));
-            let computerWin = winCombos.find(x=>x.every(z=> computerArray.includes(z)));
-            if(playerWin == undefined) {
+            let computerWin = winCombos.find(x=>x.every( z=> computerArray.includes(z)));
+            let noWinner = (playerWin == undefined && computerWin == undefined);
+
+            if(counter > 9 && noWinner) {
                 return;
             }
-            if(playerWin) {
-                console.log('winner found');
+            else if (playerWin) {
+                playerScore++;
+                resetGame();
             }
-            console.log(playerWin);
+            else if (computerWin) {
+                computerScore++;
+                resetGame();
+            }
+            else if (counter == 9 && noWinner) {
+                equal++;
+                resetGame();
+            } 
+        }
+
+        let resetGame = function() {
+            const arrayOfCells = Array.from(cell);
+            emptyArray = [];
+            counter = 0;
+            for(var i = 0; i <  arrayOfCells.length; i++) {
+                arrayOfCells[i].classList.remove('set');
+                arrayOfCells[i].innerHTML = '';
+                arrayOfCells[i].removeAttribute('value');
+            }
         }
         
+       
     }
     
     let tictac = new TicTac();

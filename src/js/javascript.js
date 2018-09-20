@@ -4,7 +4,7 @@
 
     function TicTac() {
         const cell = document.querySelectorAll('.cell');
-        let playButton = document.getElementById('go-play');
+        const playButton = document.getElementById('go-play');
         let yourSymbol, artificialSymbol;
         let playAgain = document.getElementById('play-again-button');
         let counter = 0;
